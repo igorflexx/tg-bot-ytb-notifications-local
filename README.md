@@ -1,23 +1,10 @@
-# tg bot Ytb notifications (local)
+# YouTube Notifications Bot
 
-Локальный Telegram-бот для уведомлений о новых видео на YouTube.
+Локальный Telegram-бот для отслеживания YouTube-каналов и показа новых видео по сохранённым подпискам.
 
-## Файлы
+## Основные файлы
 
-- `bot_notifications.py` - основной файл бота
-- `bot_token.txt` - сюда нужно вставить свой токен Telegram-бота
-- `requirements.txt` - зависимости Python
-- `run-local.command` - bash-скрипт для локального запуска из терминала
-
-## Запуск
-
-1. Открой `bot_token.txt`
-2. Вставь туда токен бота одной строкой
-3. Запусти:
-
-```bash
-cd /path/to/bot_notifications
-bash ./run-local.command
-```
-
-После запуска открой своего бота в Telegram и отправь команду `/start`.
+- `bot_notifications.py` - основной файл проекта: меню, команды, хранение каналов, загрузка последних видео и отметки просмотренного.
+- `run-local.command` - терминальный скрипт для локального запуска бота.
+- `requirements.txt` - список Python-зависимостей.
+- `bot_token.txt` - файл с токеном Telegram-бота.
