@@ -1,10 +1,23 @@
 @echo off
 setlocal EnableExtensions
+title tg-bot-ytb-notifications-local launcher
+
+call :main
+set "EXIT_CODE=%errorlevel%"
+if not "%EXIT_CODE%"=="0" (
+  echo.
+  echo [ERROR] Script finished with code %EXIT_CODE%.
+  echo Press any key to close this window.
+  pause >nul
+)
+exit /b %EXIT_CODE%
+
+:main
 cd /d "%~dp0"
 
 if not exist "bot_token.txt" (
-  echo [ERROR] bot_token.txt not found.
-  exit /b 1
+  >"bot_token.txt" echo PASTE_YOUR_BOT_TOKEN_HERE
+  echo Created bot_token.txt template
 )
 
 set "TOKEN_CONTENT="
@@ -30,14 +43,24 @@ if not exist ".venv\Scripts\python.exe" (
   )
 )
 
-echo Upgrading pip...
-".venv\Scripts\python.exe" -m pip install --upgrade pip >nul || exit /b 1
-
 echo Installing dependencies...
-".venv\Scripts\python.exe" -m pip install -r requirements.txt || exit /b 1
+call :install_requirements || exit /b 1
 
 echo.
 echo Starting Telegram bot...
 echo.
 ".venv\Scripts\python.exe" bot_notifications.py
+exit /b %errorlevel%
+
+:install_requirements
+set "NO_PROXY=*"
+set "no_proxy=*"
+set "ALL_PROXY="
+set "all_proxy="
+set "HTTP_PROXY="
+set "HTTPS_PROXY="
+set "http_proxy="
+set "https_proxy="
+set "PIP_DISABLE_PIP_VERSION_CHECK=1"
+".venv\Scripts\python.exe" -m pip install -r requirements.txt
 exit /b %errorlevel%
